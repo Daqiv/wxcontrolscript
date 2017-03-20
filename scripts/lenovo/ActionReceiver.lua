@@ -74,7 +74,8 @@ do
 		Moments.send(1, content);
 		writePasteboard("");
 	elseif("3004" == action) then
-		Moments.dianZan();
+		num = resultStrList[2];
+		Moments.dianZan(num);
 		writePasteboard("");
 	elseif("3005" == action) then
 		Moments.pingLun();

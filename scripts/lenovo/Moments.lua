@@ -75,7 +75,7 @@ function Moments.send(stype,content)
 
 		tap(Constants.moments_xj_zp_complete_x, Constants.moments_xj_zp_complete_y); --点击完成
 
-		mSleep(2000);
+		mSleep(5000);
 
 		--输入内容
 		tap(50, 180);
@@ -85,7 +85,7 @@ function Moments.send(stype,content)
 		--switchTSInputMethod(false);
 		mSleep(1000);
 		tap(Constants.moments_xj_zp_complete_x, Constants.moments_xj_zp_complete_y); --点击完成
-		mSleep(3000);
+		mSleep(5000);
 		--点击左上角返回
 		tap(Constants.upperleft_x, Constants.upperleft_y);
 
@@ -108,15 +108,16 @@ end;
 --[[
 ********朋友圈点赞********
 ]]--
-function Moments.dianZan()
+function Moments.dianZan(num)
 
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
 
-	-- 连续滑动
-	b=0;
-	a=0;
-	h=0;
+	num = tonumber(num);
 
+	a=0; --累计点赞次数（最多为参数传入的num次）
+	cnt=0; --累计滑动寻找需要点赞次数(最多10次)
+
+	-- 连续滑动
 	repeat
 
 		touchDown(10, 800);
@@ -126,12 +127,13 @@ function Moments.dianZan()
 			touchMove(10, i);
 
 			--mSleep(50);        --延迟
-			b = i;
-			--寻找右下角箭头图标
-			x, y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
-			if x ~= -1 and y ~= -1 then
 
-				tap(x, y);
+			--寻找右下角箭头图标
+			jt_x, jt_y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
+			log("Moments.dianZan" .. "|one -" .. "x=" .. jt_x .. "|y=" .. jt_y );
+			if jt_x ~= -1 and jt_y ~= -1 then
+
+				tap(jt_x, jt_y);
 
 			--if multiColor({{658, 1154, 0x8593b0 },{670, 1154, 0xf8f8f8},{684, 1154, 0xf8f8f8}}) == true then
 
@@ -141,8 +143,9 @@ function Moments.dianZan()
 
 				--判断是否点过赞
 				x, y = findImageInRegionFuzzy("quxiao.png", 80, 330, 1216, 398, 1278, 0xffffff);
+				log("Moments.dianZan" .. "|two -" .. "x=" .. x .. "|y=" .. y );
 				if x ~= -1 and y ~= -1 then
-
+					log("Moments.dianZan" .. "|点过赞=" .. "x=" .. x .. "|y=" .. y );
 				--if multiColor({{292, 1074, 0xffffff},{320, 1076, 0xffffff},{382, 1070, 0x7e7f82},{374, 1084, 0xffffff}}) == true then
 					--dialog("22222222");
 					touchDown(684,1154);
@@ -154,9 +157,11 @@ function Moments.dianZan()
 				mSleep(1000);
 
 				-- 寻找赞图片
-				x, y = findImageInRegionFuzzy("zan.png", 80, 344, 1218, 392, 1266, 0xffffff);
+				--x, y = findImageInRegionFuzzy("zan.png", 80, 344, 1218, 392, 1266, 0xffffff);
+				x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1214, 430, 1268);
+				log("Moments.dianZan" .. "|three -" .. "x=" .. x .. "|y=" .. y );
 				if x ~= -1 and y ~= -1 then
-
+					log("Moments.dianZan" .. "|寻找点赞图片=" .. "x=" .. x .. "|y=" .. y );
 				--if multiColor({{306, 1144, 0xffffff },{322, 1146, 0x393a3f},{338, 1144, 0xffffff},{356, 1142, 0xc6c6c8}}) == true or
 					--multiColor({{  308, 1142, 0xf9f9f9},{  360, 1146, 0xfafafa},{  486, 1146, 0xffffff}}) == true then
 						--dialog("306");
@@ -173,10 +178,16 @@ function Moments.dianZan()
 						end;
 
 				end;
+				
+				--touchDown(684,1154);
+				--touchMove(684,1120);
+				--touchUp(684,1120);
+				
+				tap(jt_x, jt_y);
 
-				touchDown(684,1154);
-				touchMove(684,1120);
-				touchUp(684,1120);
+				cnt = cnt + 1;
+
+				PageUtil.upMovePage(); --向上滑动
 
 				break;
 
@@ -186,8 +197,10 @@ function Moments.dianZan()
 		--touchUp(55, 1110);
 		touchUp(10,800);
 
-	until(a>5);
+	until((a > num) or (cnt == 10));
 
+	--点击左上角返回
+	PageUtil.back();
 end;
 
 --[[
@@ -198,9 +211,7 @@ function Moments.pingLun()
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
 
 	-- 连续滑动
-	b=0;
 	a=0;
-	h=0;
 
 	repeat
 
@@ -209,7 +220,6 @@ function Moments.pingLun()
 		for i = 800, 10, -5 do   --使用for循环从起始点连续纵向移动
 			touchMove(10, i);
 			mSleep(150);        --延迟
-			b = i;
 			--寻找右下角箭头图标
 			x, y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
 			if x ~= -1 and y ~= -1 then
@@ -237,7 +247,10 @@ function Moments.pingLun()
 		end;
 		touchUp(10, 800);
 		a = a + 1;
-	until(a>5);
+	until(a > 5);
+
+	--点击左上角返回
+	PageUtil.back();
 end;
 
 return Moments;

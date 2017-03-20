@@ -111,4 +111,25 @@ function PageUtil.settings()
 	mSleep(2150);
 end;
 
+
+-- 界面上滑动
+function PageUtil.upMovePage()
+	touchDown(10, 1154);
+	for i = 1154, 1000, -5 do
+		touchMove(10, i);
+		--mSleep(150);        --延迟
+	end
+	touchUp(10, 1154);
+end;
+
+-- 返回操作
+function PageUtil.back()
+
+	x,y = findMultiColorInRegionFuzzy( 0xffffff, "20|-2|0xffffff,36|2|0x393a3f,60|-10|0x2e2e32", 90, 0, 0, 698, 140);
+	if x ~= -1 and y ~= -1 then
+		--点击左上角返回
+		tap(Constants.upperleft_x, Constants.upperleft_y);
+	end;
+end;
+
 return PageUtil;

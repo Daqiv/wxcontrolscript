@@ -3,16 +3,29 @@ require "AddFriends";
 require "login";
 require "Moments";
 require "AppUtil";
---require "TongXunLu";
+require "TongXunLu";
 require "News";
 require "Constants";
 require "Group";
+--[[
+touchDown(10, 1154);
 
+				for i = 1154, 1000, -5 do
+					touchMove(10, i);
+					mSleep(150);        --延迟
+				end
+touchUp(10, 1154);
+]]--
 
 --x,y = findMultiColorInRegionFuzzy( 0xbababa, "2|-4|0x363636,84|0|0x828282,150|8|0x353535,268|-2|0xffffff", 90,0, 0, 698, 1266)
 --dialog("x="..x..";y="..y);
 --dialog(y);
 --tap(x, y);
+
+x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1214, 430, 1268);
+dialog("x="..x..";y="..y);
+
+--PageUtil.back();
 
 
 --Group.AddGroupByScan(5);
@@ -84,13 +97,13 @@ require "Group";
 --login.reLogin();
 
 --Moments.send(1, "今天心情很好～～");
---Moments.dianZan();
+--Moments.dianZan(3);
 --Moments.pingLun();
 
 --TongXunLu.sendMsgTofriend();
 --TongXunLu.sendMsgToGroup();
 
-News.viewNews();
+--News.viewNews();
 --AddFriends.accept();
 
 --dialog(math.random(0,150));
