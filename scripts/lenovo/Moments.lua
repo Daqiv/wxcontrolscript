@@ -129,7 +129,9 @@ function Moments.dianZan(num)
 			--mSleep(50);        --延迟
 
 			--寻找右下角箭头图标
-			jt_x, jt_y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
+			--jt_x, jt_y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
+			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 550, 1160, 698, 1266)
+
 			log("Moments.dianZan" .. "|one -" .. "x=" .. jt_x .. "|y=" .. jt_y );
 			if jt_x ~= -1 and jt_y ~= -1 then
 
@@ -158,7 +160,7 @@ function Moments.dianZan(num)
 
 				-- 寻找赞图片
 				--x, y = findImageInRegionFuzzy("zan.png", 80, 344, 1218, 392, 1266, 0xffffff);
-				x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1214, 430, 1268);
+				x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1160, 430, 1268);
 				log("Moments.dianZan" .. "|three -" .. "x=" .. x .. "|y=" .. y );
 				if x ~= -1 and y ~= -1 then
 					log("Moments.dianZan" .. "|寻找点赞图片=" .. "x=" .. x .. "|y=" .. y );
@@ -197,18 +199,22 @@ function Moments.dianZan(num)
 		--touchUp(55, 1110);
 		touchUp(10,800);
 
-	until((a > num) or (cnt == 10));
+	until((a >= num) or (cnt == 10));
 
 	--点击左上角返回
 	PageUtil.back();
 end;
 
 --[[
-********朋友圈评论********
+********朋友圈评论[评论最新的前num条朋友圈消息]********
 ]]--
-function Moments.pingLun()
+function Moments.pingLun(num, content)
+
+	log("Moments.pingLun" .. "|num=" .. num .. "|content=" .. content);
 
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
+
+	num = tonumber(num); --评论个数
 
 	-- 连续滑动
 	a=0;
@@ -219,26 +225,33 @@ function Moments.pingLun()
 
 		for i = 800, 10, -5 do   --使用for循环从起始点连续纵向移动
 			touchMove(10, i);
-			mSleep(150);        --延迟
+			
 			--寻找右下角箭头图标
-			x, y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
-			if x ~= -1 and y ~= -1 then
+			--x, y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
+			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 550, 1160, 698, 1266);
+			if jt_x ~= -1 and jt_y ~= -1 then
 
-				tap(x, y);
+				tap(jt_x, jt_y);
 				mSleep(1000);
 
 				-- 寻找评论图标
-				x, y = findImageInRegionFuzzy("moment_pinglun.png", 80, 524, 1212, 584, 1270, 0xffffff);
+				--x, y = findImageInRegionFuzzy("moment_pinglun.png", 80, 524, 1212, 584, 1270, 0xffffff);
+				x,y = findMultiColorInRegionFuzzy( 0xffffff, "14|8|0x393a3f,34|12|0xffffff,50|10|0xffffff,82|22|0x3c3d42", 90, 450, 1160, 698, 1266);
 				if x ~= -1 and y ~= -1 then
 					tap(x, y); --点击评论
-					mSleep(3000);
-
-					inputText("nice !!!");
+					mSleep(5000);
+					inputText(content);
 					mSleep(3000);
 				end;
 				--touchDown(684,1154);
 				--touchMove(684,1120);
 				--touchUp(684,1120);
+				-- 寻找完成按钮
+				x,y = findMultiColorInRegionFuzzy( 0x1aad19, "24|20|0xffffff,58|16|0x41bb40", 90, 570, 60, 698, 1266); 
+				if x ~= -1 and y ~= -1 then
+					tap(x, y); --点击完成按钮
+					a = a + 1;
+				end;
 
 				break;
 
@@ -246,8 +259,8 @@ function Moments.pingLun()
 
 		end;
 		touchUp(10, 800);
-		a = a + 1;
-	until(a > 5);
+		
+	until(a >= num);
 
 	--点击左上角返回
 	PageUtil.back();

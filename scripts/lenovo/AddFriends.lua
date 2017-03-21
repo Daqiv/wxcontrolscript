@@ -6,52 +6,31 @@ AddFriends = {}
 
 function AddFriends.searchAdd()
 
-	if(PageUtil.pageContact() == true) then
-		--寻找[新的朋友]
-		if multiColor({{30,  162, 0xfa9d3b},{82,  206, 0xfa9d3b},{86,  212, 0xffffff}}) == true then
-			touchDown(30,162);
-			mSleep(30);
-			touchUp(30,162);
-			mSleep(3000);
+	PageUtil.searchFriends(); --定位到添加好友界面
 
+	--if multiColor({{46,  226, 0x3fb838},{70,  244, 0x3fb838},{80,  256, 0x3fb838}}) == true then
 
-			--寻找[添加朋友]
-			--if multiColor({{580,   88, 0xfefefe},{578,   94, 0xfefefe},{578,  110, 0xf6f7f7},{542,   88, 0x2e2e32}}) == true then
-			touchDown(580, 88);
-			mSleep(30);
-			touchUp(580, 88);
-			mSleep(3000);
+	--寻找搜索小图标
+	x,y = findMultiColorInRegionFuzzy( 0x3fb838, "10|-8|0xffffff,30|2|0x8ad485,82|-6|0xc9c9c9", 90, 10, 180, 140, 300);
+	if x~=-1 and y ~=-1 then
+		tap(x, y);
 
+		mSleep(3500);
+		inputText("13146451976"); --输入微信号
+		mSleep(3000);
 
-			if multiColor({{46,  226, 0x3fb838},{70,  244, 0x3fb838},{80,  256, 0x3fb838}}) == true then
-				touchDown(46, 226);
-				mSleep(30);
-				touchUp(46, 226);
-				mSleep(30);
-
-				inputText("13146451976"); --输入微信号
-
-				mSleep(3000);
-
-				if multiColor({{36,  168, 0x2ba245},{82,  216, 0xffffff},{106,  238, 0x2ba245}}) == true then
-					touchDown(36, 168);
-					mSleep(30);
-					touchUp(36, 168);
-					mSleep(30);
-				end;
-
-			else
-
-			end;
-
-			--else
-				--dialog("wwwwwwwwo");
-			--end;
-
+		--if multiColor({{36,  168, 0x2ba245},{82,  216, 0xffffff},{106,  238, 0x2ba245}}) == true then
+		--寻找搜索按钮
+		x,y = findMultiColorInRegionFuzzy( 0x2ba245, "20|30|0xcbe8d1,58|52|0xffffff,114|28|0x353535", 90, 10, 140, 190, 300);
+		if x ~= -1 and y ~= -1 then
+			tap(x, y); --点击搜索按钮
 		end;
+
 	else
 
 	end;
+
+
 end;
 
 --通讯录加好友

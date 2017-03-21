@@ -111,6 +111,11 @@ function PageUtil.settings()
 	mSleep(2150);
 end;
 
+--添加好友界面
+function PageUtil.searchFriends()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsUI") --  添加好友界面
+	mSleep(2881);
+end;
 
 -- 界面上滑动
 function PageUtil.upMovePage()

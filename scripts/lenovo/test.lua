@@ -7,6 +7,40 @@ require "TongXunLu";
 require "News";
 require "Constants";
 require "Group";
+require "TSLib";
+
+
+deviceId =  getDeviceID();
+--[[dialog(deviceId);
+str=httpPost("http://106.75.10.209/api/task/response","scheduleId:12345,deviceId:"..deviceId);
+dialog(str);
+
+local imei = getIMEI();
+if imei == nil and imei == 000000000000000 then
+    dialog("该设备是模拟器或获取失败");
+else
+    dialog(imei);
+end
+]]--
+--[[
+local sz = require("sz")--使用JSON 模块前必须插入这一句
+local json = sz.json
+local tb = {
+    --["scheduleId"] = "123456",
+    --["deviceId"] = deviceId,
+	 ["scheduleId"] = "123456",
+    ["deviceId"] = deviceId,
+}
+local jsonstring = json.encode(tb);
+dialog(jsonstring, 0);
+]]--
+
+--str=httpPost("http://106.75.10.209/api/task/response",jsonstring);
+scheduleId = "2222222";
+params = "scheduleId=" .. scheduleId .. "&deviceId=" ..  getIMEI();
+dialog(params);
+str=httpGet("http://106.75.10.209/api/task/response?"..params);
+
 --[[
 touchDown(10, 1154);
 
@@ -22,8 +56,8 @@ touchUp(10, 1154);
 --dialog(y);
 --tap(x, y);
 
-x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1214, 430, 1268);
-dialog("x="..x..";y="..y);
+--x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1214, 430, 1268);
+--dialog("x="..x..";y="..y);
 
 --PageUtil.back();
 
@@ -55,7 +89,8 @@ dialog("x="..x..";y="..y);
 --runApp("com.tencent.mm","com.tencent.mm.plugin.shake.ui.ShakePersonalInfoUI"   ) --摇一摇设置
 --runApp("com.tencent.mm","com.tencent.mm.plugin.qqmail.ui.RoomInfoShareQrUI"   ) --  邮件相关
 --runApp("com.tencent.mm","com.tencent.mm.plugin.mall.ui.MallIndexUI"   ) --  我的钱包相关
---runApp("com.tencent.mm","com.tencent.mm.ui.pluginapp.AddMoreFriendsUI") --  添加好友页面
+--runApp("com.tencent.mm","com.tencent.mm.ui.pluginapp.AddMoreFriendsUI") --  添加好友页面 old
+--runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsUI") --  添加好友页面 new
 --runApp("com.tencent.mm","com.tencent.mm.ui.contact.SayHiEditUI"   ) --  打招呼
 --runApp("com.tencent.mm","com.tencent.mm.plugin.masssend.ui.MassSendSelectContactUI"   ) --  群发助手相关
 --runApp("com.tencent.mm","com.tencent.mm.ui.openapi.AddAppUI"   ) -- 添加工具
@@ -98,7 +133,7 @@ dialog("x="..x..";y="..y);
 
 --Moments.send(1, "今天心情很好～～");
 --Moments.dianZan(3);
---Moments.pingLun();
+--Moments.pingLun(3, "nice ~~");
 
 --TongXunLu.sendMsgTofriend();
 --TongXunLu.sendMsgToGroup();

@@ -15,7 +15,6 @@ require "News";
 3003:朋友圈分享链接
 3004:朋友圈点赞
 3005:朋友圈评论
-3006:朋友圈发图文
 4000:搜索加好友
 4001:通讯录加好友
 4002:搜索加公众号
@@ -59,29 +58,31 @@ do
 
 	mSleep(3000);                --延迟 3 秒
 
-	if ("1000" == action) then
+	if ("1000" == action) then --登录
 		login.login();
 		writePasteboard("");
-	elseif("1001" == action) then
+	elseif("1001" == action) then --账号切换
 		login.reLogin();
 		writePasteboard("");
-	elseif("3001" == action) then
+	elseif("3001" == action) then --朋友圈发图文
 		content = resultStrList[2];
 		Moments.send(2, content);
 		writePasteboard("");
-	elseif("3002" == action) then
+	elseif("3002" == action) then --朋友圈发文
 		content = resultStrList[2];
 		Moments.send(1, content);
 		writePasteboard("");
-	elseif("3004" == action) then
+	elseif("3004" == action) then --朋友圈点赞
 		num = resultStrList[2];
 		Moments.dianZan(num);
 		writePasteboard("");
-	elseif("3005" == action) then
-		Moments.pingLun();
+	elseif("3005" == action) then --朋友圈评论
+		num = resultStrList[1];
+		content = resultStrList[2];
+		Moments.pingLun(num, content);
 		writePasteboard("");
-	elseif("3006" == action) then
-		Moments.send(2);
+	elseif("4000" == action) then --搜索加好友
+		AddFriends.searchAdd();
 		writePasteboard("");
 	elseif("4005" == action) then
 		AddFriends.accept();
