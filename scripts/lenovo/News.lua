@@ -29,7 +29,7 @@ function viewNewsContent(x, y)
 
 	tap(x, y); --浏览新闻
 
-	mSleep(10000); --读取新闻内容(比较慢，与手机性能、网速有关)
+	mSleep(17000); --读取新闻内容(比较慢，与手机性能、网速有关)
 
 	-- start view news --
 

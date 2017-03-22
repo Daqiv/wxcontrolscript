@@ -8,9 +8,10 @@ require "News";
 require "Constants";
 require "Group";
 require "TSLib";
+require "HttpUtil";
 
 
-deviceId =  getDeviceID();
+--deviceId =  getDeviceID();
 --[[dialog(deviceId);
 str=httpPost("http://106.75.10.209/api/task/response","scheduleId:12345,deviceId:"..deviceId);
 dialog(str);
@@ -36,10 +37,10 @@ dialog(jsonstring, 0);
 ]]--
 
 --str=httpPost("http://106.75.10.209/api/task/response",jsonstring);
-scheduleId = "2222222";
-params = "scheduleId=" .. scheduleId .. "&deviceId=" ..  getIMEI();
-dialog(params);
-str=httpGet("http://106.75.10.209/api/task/response?"..params);
+--scheduleId = "2222222";
+--params = "scheduleId=" .. scheduleId .. "&deviceId=" ..  getIMEI();
+--dialog(params);
+--str=httpGet("http://106.75.10.209/api/task/response?"..params);
 
 --[[
 touchDown(10, 1154);
@@ -142,6 +143,8 @@ touchUp(10, 1154);
 --AddFriends.accept();
 
 --dialog(math.random(0,150));
+--dialog("1421");
+--HttpUtil.taskResponse(12345, 7000) ;
 
 
 --[[
