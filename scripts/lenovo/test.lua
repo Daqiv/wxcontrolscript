@@ -10,6 +10,10 @@ require "Group";
 require "TSLib";
 require "HttpUtil";
 
+--dialog("重载脚本", 0)
+--lua_restart()
+--dialog("执行不到这里", 0)
+
 
 --deviceId =  getDeviceID();
 --[[dialog(deviceId);
@@ -122,6 +126,7 @@ touchUp(10, 1154);
 --runApp("com.tencent.mm","com.tencent.mm.ui.friend.FindMContactInviteUI" ) --error
 --runApp("com.tencent.mm","com.tencent.mm.ui.LauncherUI" ) --微信首页
 --runApp("com.tencent.mm","com.tencent.mm.ui.friend.FMessageConversationUI" ) --无反应
+--runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.friend.FMessageConversationUI" ); --新的朋友
 --runApp("com.tencent.mm","com.tencent.mm.plugin.gallery.ui.AlbumPreviewUI" ) --无反应
 --runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsByOtherWayUI" ) --[添加朋友][添加手机联系人]
 --runApp("com.tencent.mm","com.tencent.mm.plugin.readerapp.ui.ReaderAppUI" ) --error
@@ -138,6 +143,13 @@ touchUp(10, 1154);
 
 --TongXunLu.sendMsgTofriend();
 --TongXunLu.sendMsgToGroup();
+
+--[[
+x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46|0xffffff", 90, 35, 1180, 90, 1180 + 50);
+		
+		if x ~= -1 and y ~= -1 then
+			dialog("x=" .. x .. ";y=" .. y);
+		end;]]--
 
 --News.viewNews();
 --AddFriends.accept();

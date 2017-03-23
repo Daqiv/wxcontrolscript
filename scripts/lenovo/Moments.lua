@@ -130,9 +130,8 @@ function Moments.dianZan(num)
 
 			--寻找右下角箭头图标
 			--jt_x, jt_y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
-			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 550, 1160, 698, 1266)
+			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 640, 1160, 698, 1266)
 
-			log("Moments.dianZan" .. "|one -" .. "x=" .. jt_x .. "|y=" .. jt_y );
 			if jt_x ~= -1 and jt_y ~= -1 then
 
 				tap(jt_x, jt_y);
@@ -144,15 +143,20 @@ function Moments.dianZan(num)
 				mSleep(1000);
 
 				--判断是否点过赞
-				x, y = findImageInRegionFuzzy("quxiao.png", 80, 330, 1216, 398, 1278, 0xffffff);
+				--x, y = findImageInRegionFuzzy("quxiao.png", 80, 330, 1216, 398, 1278, 0xffffff);
+				x,y = findMultiColorInRegionFuzzy( 0xffffff, "12|28|0xffffff,26|2|0xffffff,92|14|0xffffff,106|6|0x393a3f", 90, 290, 1160, 430, 1268);
 				log("Moments.dianZan" .. "|two -" .. "x=" .. x .. "|y=" .. y );
 				if x ~= -1 and y ~= -1 then
 					log("Moments.dianZan" .. "|点过赞=" .. "x=" .. x .. "|y=" .. y );
 				--if multiColor({{292, 1074, 0xffffff},{320, 1076, 0xffffff},{382, 1070, 0x7e7f82},{374, 1084, 0xffffff}}) == true then
 					--dialog("22222222");
-					touchDown(684,1154);
-					touchMove(684,1120);
-					touchUp(684,1120);
+					--touchDown(684,1154);
+					--touchMove(684,1120);
+					--touchUp(684,1120);
+					tap(jt_x, jt_y);
+					
+					PageUtil.upMovePage();
+
 					break;
 				end;
 
@@ -160,24 +164,24 @@ function Moments.dianZan(num)
 
 				-- 寻找赞图片
 				--x, y = findImageInRegionFuzzy("zan.png", 80, 344, 1218, 392, 1266, 0xffffff);
-				x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 244, 1160, 430, 1268);
+				--x,y = findMultiColorInRegionFuzzy( 0xffffff, "42|6|0xb4b4b6,58|6|0xffffff,62|24|0xffffff", 90, 290, 1160, 430, 1268);
+				--x2,y2 = findMultiColorInRegionFuzzy( 0x2e2e32, "16|14|0x393a3f,-22|14|0x393a3f", 90, 390, 1160, 470, 1266);
+				x,y = findMultiColorInRegionFuzzy( 0xffffff, "-2|10|0xffffff,2|16|0xd9dadb,6|20|0xd9dadb,12|24|0xf2f2f3,18|22|0xffffff,28|10|0xcececf,28|4|0xffffff,44|4|0xffffff,56|12|0xffffff", 90, 290, 1160, 430, 1268);
 				log("Moments.dianZan" .. "|three -" .. "x=" .. x .. "|y=" .. y );
-				if x ~= -1 and y ~= -1 then
-					log("Moments.dianZan" .. "|寻找点赞图片=" .. "x=" .. x .. "|y=" .. y );
-				--if multiColor({{306, 1144, 0xffffff },{322, 1146, 0x393a3f},{338, 1144, 0xffffff},{356, 1142, 0xc6c6c8}}) == true or
-					--multiColor({{  308, 1142, 0xf9f9f9},{  360, 1146, 0xfafafa},{  486, 1146, 0xffffff}}) == true then
-						--dialog("306");
-						tap(x, y);
-						mSleep(3000);
-						--tap(306,1144);
+				if (x ~= -1 and y ~= -1) and (x2 ~= -1 and y2 ~= -1) then
+					--log("Moments.dianZan" .. "|寻找点赞图片=" .. "x=" .. x .. "|y=" .. y .. "|x2=" .. x2 .. "|y2=" .. y2 );
+					log("Moments.dianZan" .. "|寻找点赞图片=" .. "x=" .. x .. "|y=" .. y);
+					tap(x, y);
+					mSleep(3000);
+					--tap(306,1144);
 
-						if (a < 4) then
-							a = a + 1;
-						else
-							tap(42, 92); --点击左上角箭头返回
-							mSleep(500);
-							return;
-						end;
+					if (a < 4) then
+						a = a + 1;
+					else
+						tap(42, 92); --点击左上角箭头返回
+						mSleep(500);
+						return;
+					end;
 
 				end;
 				
@@ -200,6 +204,11 @@ function Moments.dianZan(num)
 		touchUp(10,800);
 
 	until((a >= num) or (cnt == 10));
+
+	--置顶朋友圈
+	tap(170, 90);
+	tap(170, 90);
+	mSleep(3000);
 
 	--点击左上角返回
 	PageUtil.back();
@@ -228,7 +237,7 @@ function Moments.pingLun(num, content)
 			
 			--寻找右下角箭头图标
 			--x, y = findImageInRegionFuzzy("jt.png", 80, 640, 1224, 704, 1266, 0xffffff);
-			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 550, 1160, 698, 1266);
+			jt_x,jt_y = findMultiColorInRegionFuzzy( 0x8593b0, "10|-2|0xdbdfe6,16|2|0xd4d8e1,30|2|0xf8f8f8,36|12|0x8593b0", 90, 640, 1160, 698, 1266);
 			if jt_x ~= -1 and jt_y ~= -1 then
 
 				tap(jt_x, jt_y);
@@ -261,6 +270,11 @@ function Moments.pingLun(num, content)
 		touchUp(10, 800);
 		
 	until(a >= num);
+
+	--置顶朋友圈
+	tap(170, 90);
+	tap(170, 90);
+	mSleep(3000);
 
 	--点击左上角返回
 	PageUtil.back();

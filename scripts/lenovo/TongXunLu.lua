@@ -89,108 +89,121 @@ function TongXunLu.sendMsgTofriend()
 
 	until((x ~= -1 and y ~= -1) and isColor( 514,  yy, 0xebebeb, 95) and yy > 1065); -- end repeat
 	--until(yy > 1065); -- repeat
+	
 end;
 
 --群聊发消息
-function  TongXunLu.sendMsgToGroup()
-
---[[
-	if (isColor( 550,  1260, 0xebebeb, 95)) then
-		dialog("43rt43t");
-	end;
-]]--
-
-	PageUtil.pageContact();
-
+function TongXunLu.sendMsgToGroup(num, content)
 
 	xx = 550;
 
-	yy = 250;
+	yy = 190;
 
 	page = 1;
 
+	a = 0;
+
+	num = tonumber(num); --给num个群发消息
+
+	if num > 10 then
+		num = 10;
+	end;
+
 	repeat
 
-		x, y = findImageInRegionFuzzy("tongxunlu_qunliao.png", 80, 28, 162,236,550, 0xffffff);
+		PageUtil.GroupCardSelectUI();
 
+		mSleep(1000);
+
+		--如何检测到没有群、退出循环
+		x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46|0xffffff", 90, 35, yy, 90, yy + 50);
+		--if (isColor( 550,  1220, 0xebebeb, 95)) then
 		if x ~= -1 and y ~= -1 then
+			log("TongXunLu.sendMsgToGroup no group" .. "|x=" .. x .. "|y=" .. y .. "|yy=" .. yy .. "|yy+50=" .. (yy+50));
+			break;
+		end;
 
-			log("TongXunLu.sendMsgToGroup" .. "|x=" .. tostring(x) .. "|y=" .. tostring(y) .. "|xx=" .. tostring(xx) .. "|yy=" .. tostring(yy) .. "|page=" .. tostring(page));
+		mSleep(1000);
 
-			tap(x, y); --点击通讯录页面群聊
+		--切换下一屏
+		if (yy > 1150) then
 
-			mSleep(1000);
+			yy = 1180;
 
-			--切换下一屏
-			if (yy > 1150) then
+			touchDown(xx,1150);
 
-				yy = 1180;
+			for i = 1150, (1150 - page * 100), -10 do
+				touchMove(xx, i);
+				mSleep(150);        --延迟
+			end
 
-				touchDown(xx,1150);
+			touchUp(xx,1150);
 
-				for i = 1150, (1150 - page * 100), -10 do
-					touchMove(xx, i);
-					mSleep(150);        --延迟
-				end
-
-				touchUp(xx,1150);
-
-				page = page + 1;
-
-			end;
-
-			mSleep(1000);
-			--如何检测到没有群、退出循环
-			if (isColor( 550,  1220, 0xebebeb, 95)) then
-				break;
-			end;
-
-
-			if (page == 1) then
-				tap(xx, yy); --点击进入群
-			else
-				tap(xx, 1180);
-			end;
-			mSleep(1000);
-
-			switchTSInputMethod(true);
-			mSleep(1000);
-
-
-			tap(346, 1258); --点击屏幕最下输入消息栏，使其获取焦点
-			--输入消息
-			mSleep(2000);
-			message = os.date("%Y-%m-%d %H:%M:%S", os.time());
-			--message = "<div><div class='wxbj.cn'><section style='margin: 1em auto; text-align:center;'><section style='border-top-width: 1px; border-top-style: solid; border-color: rgb(33, 33, 33); color: rgb(97, 97, 97); line-height: 1.4; display: inline-block; padding: 0px 16px;'><span style='margin: -1px auto 10px; width: 0px; height: 0px; border-left-width: 10px; border-left-style: solid; border-left-color: transparent; border-right-width: 10px; border-right-style: solid; border-right-color: transparent; display: block; border-top-width: 8px; border-top-style: solid; border-top-color: #E50065;' class='wxqq-borderTopColor'></span><section><p style='text-align: center;'><span style='color: #0C0C0C;'>测试</span></p></section></section></section></div></div><p><br/></p><div><section label='Copyright © 2015 wxbj.cn All Rights Reserved.' style='font-size:14px;font-family:&#39;Microsoft YaHei&#39;;margin: 5px auto;white-space: normal;'><section class='wxqq-borderTopColor wxqq-borderBottomColor' style='line-height: 10px; color: inherit; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(255, 29, 107); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(255, 29, 107); margin-top: 10px;'><section style='font-size:40px;color:inherit;height:8px;margin-left:35%;width:65%;background-color:#fefefe;margin-top:-1px'><span class='wxqq-color' style='color: rgb(255, 29, 107);'>“</span></section><section data-style='text-align: justify;' style='line-height:30px;color:#3e3e3e;font-size:14px;margin:15px 15px 20px;text-indent:2em'><p style='text-align:justify'>在这里输入你的内容，注意不要用退格键把所有文字删除，请保留一个或者用鼠标选取后直接输入，防止格式错乱。</p></section><section style='font-size:40px;background-color:#fefefe;color:inherit;text-align:right;height:10px;margin:0 0 -8px 0;width:65%'><span class='wxqq-color' style='color: rgb(255, 29, 107);'>”</span></section></section></section></div><p><br/></p><p><br/></p>";
-			inputText(message);
-
-			switchTSInputMethod(false);
-			mSleep(1000);
-
-
-			mSleep(1000);
-			tap(662, 698); --发送消息
-			mSleep(500);
-
-			tap(58, 92); --点击左上返回
-			mSleep(1000);
-			tap(262, 1220); --点击通讯录
-			mSleep(2000);
-			--250,250
-
-			yy = yy + 100;
+			page = page + 1;
 
 		end;
+
+		mSleep(1000);
+		
+
+		if (page == 1) then
+			tap(xx, yy); --点击进入群
+		else
+			tap(xx, 1180);
+		end;
+		
+		mSleep(1000);
+		switchTSInputMethod(true);
+		mSleep(2000);
+
+
+		tap(346, 1258); --点击屏幕最下输入消息栏，使其获取焦点
+		--输入消息
+		mSleep(3000);
+		--message = os.date("%Y-%m-%d %H:%M:%S", os.time());
+		inputText(content);
+
+		switchTSInputMethod(false);
+		mSleep(3000);
+
+		--寻找发送按钮
+		x,y = findMultiColorInRegionFuzzy( 0x1aad19, "60|38|0x1aad19,24|44|0x1aad19", 90, 560, 630, 710, 1266);
+		if x ~= -1 and y ~= -1 then
+			tap(x, y); --发送消息
+			a = a + 1;
+		end;
+
+		mSleep(1000);
+		tap(58, 92); --点击左上返回
+		mSleep(1000);
+
+--[[
+		mSleep(1000);
+		tap(662, 698); --发送消息
+		mSleep(500);
+
+		tap(58, 92); --点击左上返回
+		mSleep(1000);
+		tap(262, 1220); --点击通讯录
+		mSleep(2000);
+		--250,250
+]]--
+		yy = yy + 100;
+
+		if yy > 1180 then
+			yy = 1180;
+		end;
+
 
 		-- 判断是不是通讯录最下面,根据是否有"X个群聊"图识别
 		--x, y = findImageInRegionFuzzy("tongxunlu_ql.png", 80, 324, 1182,448,1264, 0xffffff);
 
-		--log(">>>>>>  " .. "|x=" .. tostring(x) .. "|y=" .. tostring(y));
+		log(">>>>>>  " .. "|xx=" .. tostring(xx) .. "|yy=" .. tostring(yy));
 --		if (page > 1) then
 --			mSleep(5000);
 --		end;
 
-	until(false); -- end repeat
+	until(false or (a >= num)); -- end repeat
 
 	tap(58, 92); --点击左上返回
 	mSleep(1000);

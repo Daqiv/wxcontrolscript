@@ -1,15 +1,6 @@
 require "TSLib"
 
---[[
-if multiColor({{44, 96, 0xb0b0b2 },{530, 106, 0xfefefe},{652, 94, 0xffffff}}) == true then--全部坐标点和颜色一致时返回 true，== true 可省略不写
-mSleep(50)
-toast("找到颜色并点击")
-mSleep(3000)
-end
-]]--
-
 PageUtil = {};
-
 
 function PageUtil.pageWeiXin()
 	-- 微信-微信
@@ -113,8 +104,19 @@ end;
 
 --添加好友界面
 function PageUtil.searchFriends()
-	runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsUI") --  添加好友界面
+	runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsUI"); --  添加好友界面
 	mSleep(2881);
+end;
+
+--新的朋友
+function PageUtil.newFriends()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.subapp.ui.friend.FMessageConversationUI" ); --新的朋友
+	mSleep(2302);
+end;
+
+--[通讯录]-[群聊界面]
+function PageUtil.GroupCardSelectUI()
+	runApp("com.tencent.mm","com.tencent.mm.ui.contact.GroupCardSelectUI");
 end;
 
 -- 界面上滑动
