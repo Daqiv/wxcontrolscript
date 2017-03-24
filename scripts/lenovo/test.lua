@@ -9,11 +9,14 @@ require "Constants";
 require "Group";
 require "TSLib";
 require "HttpUtil";
+require "NearFriends";
+require "FontAndImgFindUtil";
 
 --dialog("重载脚本", 0)
 --lua_restart()
 --dialog("执行不到这里", 0)
 
+--NearFriends.sayToNearFriends(12, "你好啊～");
 
 --deviceId =  getDeviceID();
 --[[dialog(deviceId);
@@ -132,6 +135,7 @@ touchUp(10, 1154);
 --runApp("com.tencent.mm","com.tencent.mm.plugin.readerapp.ui.ReaderAppUI" ) --error
 --runApp("com.tencent.mm","com.tencent.mm.plugin.readerapp.ui.ReaderAppIntroUI" ) --error 白界面
 --runApp("com.tencent.mm","com.tencent.mm.plugin.setting.ui.setting.SettingsPluginsUI" ) --[功能]界面
+--runApp("com.tencent.mm","com.tencent.mm.plugin.nearby.ui.NearbyFriendsUI" ) --附近的人列表界面
 
 
 --login.login();
@@ -152,7 +156,9 @@ x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46
 		end;]]--
 
 --News.viewNews();
---AddFriends.accept();
+--AddFriends.accept(1);
+
+--PageUtil.mainPage();
 
 --dialog(math.random(0,150));
 --dialog("1421");

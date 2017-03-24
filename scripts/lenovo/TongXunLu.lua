@@ -205,9 +205,10 @@ function TongXunLu.sendMsgToGroup(num, content)
 
 	until(false or (a >= num)); -- end repeat
 
-	tap(58, 92); --点击左上返回
+	tap(Constants.upperleft_x, Constants.upperleft_y); --点击左上返回
 	mSleep(1000);
-	tap(90, 1220) --返回到微信首页
+	--返回微信首页
+    PageUtil.mainPage();
 end;
 
 

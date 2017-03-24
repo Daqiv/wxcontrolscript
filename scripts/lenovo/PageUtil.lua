@@ -65,7 +65,25 @@ function PageUtil.pageFind()
 	--end;
 end;
 
--- 朋友圈界面
+--附近的人相关操作主页面
+function PageUtil.nearbyFriendsIntroUI()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.nearby.ui.NearbyFriendsIntroUI") -- 附近的人相关操作;
+	mSleep(2731);
+end;
+
+--附近的人列表界面
+function PageUtil.nearbyFriendsUI()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.nearby.ui.NearbyFriendsUI" ) --附近的人列表界面
+	mSleep(9035); --加载比较慢[和手机与网络有关]
+end;
+
+--微信首页
+function PageUtil.mainPage()
+	runApp("com.tencent.mm","com.tencent.mm.ui.LauncherUI");
+	mSleep(1680);
+end;
+
+--朋友圈界面
 function PageUtil.pageSnsTimeLine()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SnsTimeLineUI");
 	mSleep(5000);
@@ -90,13 +108,18 @@ function PageUtil.pageMy()
 	--end;
 end;
 
--- 扫码界面
+--群发选择好友界面
+function PageUtil.massSendSelectContact()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.masssend.ui.MassSendSelectContactUI");
+end;
+
+--扫码界面
 function PageUtil.scan()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.scanner.ui.BaseScanUI");
 	mSleep(2000);
 end;
 
--- 功能界面
+--功能界面
 function PageUtil.settings()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.setting.ui.setting.SettingsPluginsUI");
 	mSleep(2150);
@@ -117,9 +140,10 @@ end;
 --[通讯录]-[群聊界面]
 function PageUtil.GroupCardSelectUI()
 	runApp("com.tencent.mm","com.tencent.mm.ui.contact.GroupCardSelectUI");
+	mSleep(2100);
 end;
 
--- 界面上滑动
+--界面上滑动
 function PageUtil.upMovePage()
 	touchDown(10, 1154);
 	for i = 1154, 1000, -5 do
@@ -129,7 +153,7 @@ function PageUtil.upMovePage()
 	touchUp(10, 1154);
 end;
 
--- 返回操作
+--返回操作
 function PageUtil.back()
 
 	x,y = findMultiColorInRegionFuzzy( 0xffffff, "20|-2|0xffffff,36|2|0x393a3f,60|-10|0x2e2e32", 90, 0, 0, 698, 140);

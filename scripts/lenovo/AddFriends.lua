@@ -60,28 +60,39 @@ function AddFriends.contactAdd()
 end;
 
 --通讯录-新的朋友-自动添加
-function AddFriends.accept()
+function AddFriends.accept(num)
 
 	PageUtil.newFriends();
+
+	num = tonumber(num); --添加好友个数
+
+	a=0;
 
 	flag = false; --标识第一个用户是否添加失败
 
 	--判断是否有朋友需要添加
 	x,y = findMultiColorInRegionFuzzy(
-		0xafafaf, "-12|12|0xaaaaaa,10|24|0xaaaaaa,18|32|0xaaaaaa,34|2|0xaaaaaa,62|24|0xebebeb", 90, 644, 1228, 698, 1266);
-	if x ~= -1 and y ~= -1 then --有朋友需要添加
-		
+		0xb7b7b7, "18|0|0xaaaaaa,28|0|0xaaaaaa,38|-2|0xb0b0b0,54|-2|0xaaaaaa", 90, 150, 275, 550, 365);
+	if x ~= -1 and y ~= -1 then --没有朋友需要添加
+		log("AddFriends.accept|no friends find !");
+	else
+		log("AddFriends.accept|" .. "x=" .. x .. "|y=" .. y );
 		while(true)
 		do
+			if (a >= num) then --添加指定好友数,退出本次操作
+				break;
+			end;
 
-			if(flag == false) then
+			if(flag == false) then --有效用户
 
-				if multiColor({{602,  412, 0x1aad19},{  592,  408, 0x1aad19},{  680,  412, 0x1aad19}}) == true then
+				if multiColor({{602,  412, 0x1aad19},{  592,  408, 0x1aad19},{  680,  412, 0x1aad19}}) == true then --右侧显示绿色[接受]按钮好友
+					log("AddFriends.accept|右侧显示绿色[接受]按钮好友");
 					tap(600, 410);
 					mSleep(2000);
 					if (isUpperRightButton()) then
 						mSleep(2000);
 						tap(Constants.upperright_x, Constants.upperright_y);
+						a = a + 1; --添加好友数+1
 						mSleep(10000);
 						--如果添加好友失败,还是停留在当前页面,点击右上角箭头返回
 						if (isUpperRightButton()) then
@@ -91,30 +102,59 @@ function AddFriends.accept()
 						else
 							flag = false;
 						end;
+						--如果好友添加成功,删除已添加成功的好友
+						if isAcceptFriend() then
+							removeFriend();
+							flag = false;
+							mSleep(3000);
+						end;
 					end;
-				else
+				elseif isAcceptFriend() then --右侧显示[已添加]好友
+					log("AddFriends.accept|右侧显示[已添加]好友");
+					removeFriend();
+					flag = false;
+					mSleep(3000);
+				else --其他
 					--dialog("555");
+					log("AddFriends.accept|其他");					
 					flag = false;
 					mSleep(2000);
 					tap(Constants.upperleft_x, Constants.upperleft_y);
 					break;
 				end;
-			else
+			else --无效用户
+				log("AddFriends.accept|无效用户");
 				--长按好友弹出删除框,进行删除
-				touchDown(200, 410);
-				mSleep(3000);
-				touchUp(200, 410);
-				mSleep(2500);
-				tap(300, 660); --点出弹出的删除框
+				removeFriend();
 				flag = false;
 				mSleep(3000);
 			end;
 		end;
-	else
-		log("AddFriends.accept|no friends find !");
-	end;
 
-	PageUtil.back();
+	end;
+	--返回到首页
+	PageUtil.mainPage();
+end;
+
+--判断是否是已添加好友
+function isAcceptFriend()
+	--寻找已添加图标
+	x,y = findMultiColorInRegionFuzzy(
+		0x999999, "14|18|0x999999,22|6|0xa5a5a5,50|6|0xbbbbbb", 90, 590, 370, 710, 435);
+	if x ~= -1 and y ~= -1 then
+		return true;
+	else
+		return false;
+	end;
+end;
+
+--删除过期无效好友或已添加成功的好友
+function removeFriend()
+	touchDown(200, 410);
+	mSleep(3000);
+	touchUp(200, 410);
+	mSleep(2500);
+	tap(300, 660); --点出弹出的删除框
 end;
 
 --检查右上角是否是完成按钮

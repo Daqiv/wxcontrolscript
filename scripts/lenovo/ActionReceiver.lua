@@ -59,7 +59,7 @@ do
 		scheduleId = resultStrList[1]; --获取任务ID
 		action = resultStrList[2]; --获取命令编码
 
-		mSleep(3000);                --延迟 3 秒
+		mSleep(3000); --延迟3秒
 
 		if ("200" == action) then --更新文件
 			dolua_restart(); --重载脚本
@@ -96,10 +96,24 @@ do
 			AddFriends.searchAdd();
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
-		elseif("4005" == action) then --自动添加朋友
-			AddFriends.accept();
+		elseif("4003" == action) then --附近人打招呼
+			num = resultStrList[3];
+			content = resultStrList[4];
+			NearFriends.sayToNearFriends(num, content);
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
+		elseif("4005" == action) then --自动添加朋友
+			num = resultStrList[3];
+			AddFriends.accept(num);
+			writePasteboard("");
+			HttpUtil.taskResponse(scheduleId, action);
+		elseif("5000" == action) then --好友-群发消息
+			content = resultStrList[3];
+			writePasteboard("");
+			HttpUtil.taskResponse(scheduleId, action);
+		elseif("5001" == action) then --好友-群发图片
+			writePasteboard("");
+			HttpUtil.taskResponse(scheduleId, action);			
 		elseif("6000" == action) then --微信群-发消息
 			num = resultStrList[3];
 			content = resultStrList[4];
