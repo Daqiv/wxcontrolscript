@@ -11,8 +11,20 @@ require "TSLib";
 require "HttpUtil";
 require "NearFriends";
 require "FontAndImgFindUtil";
+require "Shake";
 
---dialog("重载脚本", 0)
+
+showFloatButton(false);
+
+--NearFriends.auToSayToNearFriends(5);
+--TongXunLu.sendMsgToAllfriends("你好～～");
+--AddFriends.contactAdd();
+--AppUtil.runShake();
+
+--Shake.addFriends(2,"你好～～");
+--Group.AddGroupByScan(1);
+
+
 --lua_restart()
 --dialog("执行不到这里", 0)
 
@@ -81,6 +93,8 @@ touchUp(10, 1154);
 --AddFriends.searchAdd();
 --AddFriends.contactAdd();
 
+--runApp("com.tencent.mm","com.tencent.mm.plugin.readerapp.ui.ReaderAppUI"  ) --error
+--runApp("com.tencent.mm","com.tencent.mm.plugin.profile.ui.ContactInfoUI"); --无反应
 --runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SnsTimeLineUI"  ) --朋友圈
 --runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SnsMsgUI"  ) -- 朋友圈回复给我的消息
 --runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SettingSnsBackgroundUI"  ) --  挑选图片或者拍照更换相册封面
@@ -118,6 +132,8 @@ touchUp(10, 1154);
 --runApp("com.tencent.mm","com.tencent.mm.plugin.masssend.ui.MassSendHistoryUI" ) --群发助手新建群
 --runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SnsMsgUI" ) --朋友圈消息
 
+
+--runApp("com.tencent.mm","com.tencent.mm.ui.bindmobile.MobileFriendUI" ); --查看手机通讯录界面
 --runApp("com.tencent.mm","com.tencent.mm.ui.contact.AddressUI" ) --error
 --runApp("com.tencent.mm","com.tencent.mm.ui.contact.SelectContactUI" ) --error
 --runApp("com.tencent.mm","com.tencent.mm.ui.contact.GroupCardSelectUI" ) --[通讯录]-[群聊界面]
@@ -142,7 +158,7 @@ touchUp(10, 1154);
 --login.reLogin();
 
 --Moments.send(1, "今天心情很好～～");
---Moments.dianZan(3);
+--Moments.dianZan(2);
 --Moments.pingLun(3, "nice ~~");
 
 --TongXunLu.sendMsgTofriend();
@@ -251,3 +267,5 @@ end;
 		dialog(resultStrList[2]);
 
 ]]--
+
+showFloatButton(true);

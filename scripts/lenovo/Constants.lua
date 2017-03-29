@@ -9,6 +9,8 @@ Constants.bottomleft_y = 1240; --左下角X或者返回箭头Y坐标
 
 Constants.upperright_x = 650; --右上角[完成]X坐标
 Constants.upperright_y = 100; --右上角[完成]Y坐标
+Constants.bottomright_x = 650; --右下角X坐标
+Constants.bottomright_y = 1230; --右下角Y坐标
 
 
 

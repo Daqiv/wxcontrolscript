@@ -44,6 +44,26 @@ function AppUtil.run()
 	mSleep(5000);
 end;
 
+--启动摇一摇应用
+function AppUtil.runShake()
+	flag = appIsRunning("gyh.shake");
+	if flag ~= 1 then
+		runApp("gyh.shake");
+	end;
+	mSleep(5000);
+	pressHomeKey();
+end;
+
+--关闭摇一摇应用
+function AppUtil.closeShake()
+	flag = appIsRunning("gyh.shake");
+	if flag == 1 then
+		closeApp("gyh.shake");
+	end;
+	mSleep(5000);
+end;
+
+
 --退出应用
 function AppUtil.close()
 	closeApp("com.tencent.mm");    --退出应用

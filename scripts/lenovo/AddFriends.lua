@@ -36,6 +36,7 @@ end;
 --通讯录加好友
 function AddFriends.contactAdd()
 
+--[[
 	PageUtil.pageContact();
 
 	mSleep(2000);
@@ -53,9 +54,53 @@ function AddFriends.contactAdd()
 	mSleep(1000);
 
 	tap(Constants.tongxunlu_newfriend_mc_m_x, Constants.tongxunlu_newfriend_mc_m_y);--点击[通讯录]-[新的朋友]-[添加朋友]-[手机联系人]-[添加手机联系人]按钮
+]]--
+	page = 1;
+	xx = 570;
+	yy = 250;
+	--yy = 1030;
+	a = 0;
 
-	mSleep(10000); --此处加载手机联系人时间比较长
+	PageUtil.mobileFriendUI(); --查看手机通讯录界面
 
+	--判断是否有新好友可以添加
+	--x,y = findMultiColorInRegionFuzzy( 0x1aad19, "10|28|0x1aad19,118|28|0x1aad19,118|-8|0x1aad19", 90, 500, 160, 710, 1260);
+	--if x ~= -1 and y ~= -1 then --有朋友需要添加
+	repeat
+		if yy > 1160 then
+			PageUtil.upMovePage();
+			mSleep(1500);
+			page = page + 1;
+		end;
+
+		mSleep(1000);
+
+		--判断是否是[添加]按钮
+		
+		if page == 1 then
+			if (isColor(xx,  yy, 0x1aad19, 85)) then
+				tap(xx, yy); --点击[添加]按钮
+			end;
+		else
+			x,y = findMultiColorInRegionFuzzy( 0x1aad19, "38|0|0xf8fcf8,98|2|0x1aad19", 90, 520, 1050, 710, 1274);
+			--x,y = findMultiColorInRegionFuzzy( 0x1aad19, "10|28|0x1aad19,118|28|0x1aad19,118|-8|0x1aad19", 90, 520, 1190, 710, 1274);
+			if x~= -1 and y ~= -1 then
+				tap(x, y);
+			end;
+		end;
+
+		a = a + 1;
+
+		mSleep(3333);
+		tap(Constants.upperright_x, Constants.upperright_y); --点击右上角发送
+		mSleep(1333);
+		
+		yy = yy + 130;
+
+		log("AddFriends.contactAdd" .. "xx=" .. xx .. "|yy=" .. yy );
+
+		mSleep(1000);
+	until(false or a >= 20);
 
 end;
 

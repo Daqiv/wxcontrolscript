@@ -1,5 +1,6 @@
 require "PageUtil";
 require "Constants";
+require "FontAndImgFindUtil";
 
 News = {}
 
@@ -8,19 +9,29 @@ function News.viewNews()
 
 	 PageUtil.settings(); --定位到功能界面
 
-	tap(Constants.my_sz_ty_gn_txxw_x, Constants.my_sz_ty_gn_txxw_y); --点击腾讯新闻
+	--tap(Constants.my_sz_ty_gn_txxw_x, Constants.my_sz_ty_gn_txxw_y); --点击腾讯新闻
+	--寻找腾讯新闻图标
+	x,y = FontAndImgFindUtil.qqNews();
+	if x ~= -1 and y ~= -1 then
 
-	mSleep(1957);
+		tap(x, y);
 
-	tap(Constants.my_sz_ty_gn_txxw_txxw_x, Constants.my_sz_ty_gn_txxw_txxw_y); --点击腾讯新闻
+		mSleep(1957);
 
-	mSleep(3000);
+		--tap(Constants.my_sz_ty_gn_txxw_txxw_x, Constants.my_sz_ty_gn_txxw_txxw_y); --点击腾讯新闻
+		x,y = FontAndImgFindUtil.qqNews();
+		if x ~= -1 and y ~= -1 then
+			tap(x, y);
+			
+			mSleep(3000);
 
-	viewNewsContent(130, 1060); --浏览第1条新闻
+			viewNewsContent(130, 1060); --浏览第1条新闻
 
-	viewNewsContent(130, 1234); --浏览第2条新闻
+			viewNewsContent(130, 1234); --浏览第2条新闻
 
-	returnMy(4); --返回到我页面
+			returnMy(4); --返回到我页面
+		end;
+	end;
 
 end;
 

@@ -65,6 +65,18 @@ function PageUtil.pageFind()
 	--end;
 end;
 
+--摇一摇界面
+function PageUtil.ShakeReportUI()
+	runApp("com.tencent.mm","com.tencent.mm.plugin.shake.ui.ShakeReportUI");
+	mSleep(6600);
+end;
+
+--查看手机通讯录界面
+function PageUtil.mobileFriendUI()
+	runApp("com.tencent.mm","com.tencent.mm.ui.bindmobile.MobileFriendUI" ); --查看手机通讯录界面
+	mSleep(10000); --此处加载手机联系人时间比较长
+end;
+
 --附近的人相关操作主页面
 function PageUtil.nearbyFriendsIntroUI()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.nearby.ui.NearbyFriendsIntroUI") -- 附近的人相关操作;
@@ -86,7 +98,7 @@ end;
 --朋友圈界面
 function PageUtil.pageSnsTimeLine()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.sns.ui.SnsTimeLineUI");
-	mSleep(5000);
+	mSleep(9310);
 end;
 
 function PageUtil.pageMy()
@@ -111,6 +123,7 @@ end;
 --群发选择好友界面
 function PageUtil.massSendSelectContact()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.masssend.ui.MassSendSelectContactUI");
+	mSleep(3500);
 end;
 
 --扫码界面

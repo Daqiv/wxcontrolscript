@@ -6,6 +6,7 @@ require "AppUtil";
 require "TongXunLu";
 require "News";
 require "HttpUtil";
+require "Group";
 
 
 --[[
@@ -99,16 +100,18 @@ do
 		elseif("4003" == action) then --附近人打招呼
 			num = resultStrList[3];
 			content = resultStrList[4];
-			NearFriends.sayToNearFriends(num, content);
+			--NearFriends.sayToNearFriends(num, content);
+			NearFriends.auToSayToNearFriends(num);
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
-		elseif("4005" == action) then --自动添加朋友
-			num = resultStrList[3];
-			AddFriends.accept(num);
-			writePasteboard("");
-			HttpUtil.taskResponse(scheduleId, action);
+		elseif("4005" == action) then --自动添加朋友[微X模块实现]
+			--num = resultStrList[3];
+			--AddFriends.accept(num);
+			--writePasteboard("");
+			--HttpUtil.taskResponse(scheduleId, action);
 		elseif("5000" == action) then --好友-群发消息
 			content = resultStrList[3];
+			TongXunLu.sendMsgToAllfriends(content);
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
 		elseif("5001" == action) then --好友-群发图片
@@ -117,9 +120,20 @@ do
 		elseif("6000" == action) then --微信群-发消息
 			num = resultStrList[3];
 			content = resultStrList[4];
-			TongXunLu.sendMsgToGroup(num, content);
+			TongXunLu.sendMsgToGroup(num, content, 1);
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
+		elseif("6003" == action) then --微信群-发图片
+			num = resultStrList[3];
+			TongXunLu.sendMsgToGroup(num, "", 2);
+			writePasteboard("");
+			HttpUtil.taskResponse(scheduleId, action);	
+		elseif("6006" == action) then --微信群-扫码加群
+			num = resultStrList[3];
+			Group.AddGroupByScan(num);
+			writePasteboard("");
+			HttpUtil.taskResponse(scheduleId, action);	
+							
 		elseif("7000" == action) then --浏览新闻
 			News.viewNews();
 			writePasteboard("");
