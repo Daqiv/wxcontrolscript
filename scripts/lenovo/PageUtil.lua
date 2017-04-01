@@ -23,27 +23,23 @@ end;
 
 --定位到通讯录页面
 function PageUtil.pageContact()
-	-- 微信-通讯录
-	--if multiColor({{68, 1202, 0x999999 },{264, 1218, 0x46c01b},{444, 1214, 0x999999}}) ~= true then
 
-		x, y = findImageInRegionFuzzy("zs_jt.png", 80, 22, 72,70,116, 0xffffff);
+	PageUtil.mainPage();
 
-		log("PageUtil.pageContact" .. "|x=" .. tostring(x) .. "|y=" .. tostring(y) );
+	--寻找首页(通讯录)底部栏图标
+	x,y = findMultiColorInRegionFuzzy( 0x999999, "0|8|0x999999,0|16|0x999999", 90, 220, 1180, 310, 1270);
+	if x ~= -1 and y ~= -1 then
+		tap(x, y);
+		mSleep(3002);
 
+		x,y = findMultiColorInRegionFuzzy( 0x45c01a, "48|4|0x45c01a,20|50|0x45c01a", 90, 10, 240, 120, 360);
 		if x ~= -1 and y ~= -1 then
 			tap(x, y);
-			mSleep(500);
-		else
-			--tap(42, 92);
-			--mSleep(500);
+			mSleep(1002);
 		end;
 
-		AppUtil.pressHomeKey();
-		mSleep(500);
-		AppUtil.run();
+	end;
 
-		tap(264, 1218);
-	--end;
 end;
 
 function PageUtil.pageFind()
@@ -129,7 +125,7 @@ end;
 --扫码界面
 function PageUtil.scan()
 	runApp("com.tencent.mm","com.tencent.mm.plugin.scanner.ui.BaseScanUI");
-	mSleep(2000);
+	mSleep(4000);
 end;
 
 --功能界面
@@ -166,6 +162,15 @@ function PageUtil.upMovePage()
 	touchUp(10, 1154);
 end;
 
+--滑倒最底端
+function PageUtil.bmMovePage()
+	touchDown(150, 1200);   
+	mSleep(30);
+	touchMove(150, 5);    
+	mSleep(30);
+	touchUp(150, 5);
+end;
+
 --返回操作
 function PageUtil.back()
 
@@ -174,6 +179,7 @@ function PageUtil.back()
 		--点击左上角返回
 		tap(Constants.upperleft_x, Constants.upperleft_y);
 	end;
+	mSleep(2500);
 end;
 
 return PageUtil;

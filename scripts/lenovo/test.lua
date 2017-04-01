@@ -14,7 +14,18 @@ require "FontAndImgFindUtil";
 require "Shake";
 
 
-showFloatButton(false);
+--showFloatButton(false);
+
+--x,y = findMultiColorInRegionFuzzy( 0xdadada, "-5|0|0xf2f2f2", 90, 320, 1150, 375, 1190);
+--dialog(x .. ";" .. y);
+
+--如何检测到没有群、退出循环  
+
+
+--scheduleId = 10020;
+
+--toast("任务ID:" .. scheduleId .. " 执行完成");
+
 
 --NearFriends.auToSayToNearFriends(5);
 --TongXunLu.sendMsgToAllfriends("你好～～");
@@ -22,7 +33,7 @@ showFloatButton(false);
 --AppUtil.runShake();
 
 --Shake.addFriends(2,"你好～～");
---Group.AddGroupByScan(1);
+--Group.AddGroupByScan(2);
 
 
 --lua_restart()
@@ -162,7 +173,20 @@ touchUp(10, 1154);
 --Moments.pingLun(3, "nice ~~");
 
 --TongXunLu.sendMsgTofriend();
---TongXunLu.sendMsgToGroup();
+TongXunLu.sendMsgToGroup(10, "大家好～", 1);
+
+--[[
+yy = 340;
+x, y = findImageInRegionFuzzy("gequnliao.png", 90, 280, yy-50, 440, yy+50, 0xffffff);
+if x ~= -1 and y ~= -1 then        --如果在指定区域找到某图片符合条件
+    touchDown(x, y);            --那么单击该图片
+    mSleep(30);
+    touchUp(x, y);
+else                               --如果找不到符合条件的图片
+    dialog("未找到符合条件的坐标！",0);
+end
+]]--
+
 
 --[[
 x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46|0xffffff", 90, 35, 1180, 90, 1180 + 50);
@@ -268,4 +292,24 @@ end;
 
 ]]--
 
-showFloatButton(true);
+--x,y = findMultiColorInRegionFuzzy( 0x04be02, "12|-4|0x04be02,-30|-4|0x04be02", 90, 115, 660, 580, 960);
+--dialog(x .. "," .. y);
+
+--PageUtil.pageContact();
+--10, 170, 250, 420
+
+--内容已复制到剪贴板!
+--[[
+local tab = {
+"06007003fff800810be46f93225889c23ff89c2258f913e42010@10$保$86$14$15",
+}
+local index = addTSOcrDictEx(tab)
+--请自行更改参数
+--1: 0,0,0,0 范围坐标，请自行修改
+--2: "616161 , 2C2C2C" 偏色,多组或单组.请在偏色列表中选择
+--3: 90 匹配精度 【0-100】
+x, y = tsFindText(index, "保", 10, 170, 250, 420, "616161 , 2C2C2C", 90)
+dialog("识别到的坐标 	x:"..x.." , y:"..y)
+]]--
+
+--showFloatButton(true);

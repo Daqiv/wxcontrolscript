@@ -12,6 +12,11 @@ function Moments.send(stype,content)
 
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
 
+	x,y = FontAndImgFindUtil.isMoments(); --判断当前界面是不是朋友圈界面
+	if x == -1 and y == -1 then --如果不是朋友圈界面
+		return; --返回
+	end;
+
 	if 1 == stype then
 		touchDown(Constants.moments_ul_xj_x , Constants.moments_ul_xj_y); --左上角相机
 		mSleep(3000); --长按相机发文字
@@ -116,11 +121,17 @@ function Moments.dianZan(num)
 
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
 
-	x,y = FontAndImgFindUtil.isMoments();
+	x,y = FontAndImgFindUtil.isMoments(); --判断当前界面是不是朋友圈界面
 
-	if x == -1 and y == -1 then
+	dFlag = false; --标识是否是底部
+
+	if x == -1 and y == -1 then --不是朋友圈界面
 		return;
-	else
+	else --是朋友圈界面
+
+		if num == nil or num == 0 then
+			num = 1;
+		end;
 
 		num = tonumber(num);
 
@@ -135,7 +146,6 @@ function Moments.dianZan(num)
 			for i = 800, 10, -3 do   --使用for循环从起始点连续纵向移动
 
 				touchMove(10, i);
-
 				--mSleep(50);        --延迟
 
 				--寻找右下角箭头图标
@@ -206,14 +216,21 @@ function Moments.dianZan(num)
 					PageUtil.upMovePage(); --向上滑动
 
 					break;
+				else
 
+					--判断是不是朋友圈最底部，最底部return
+					x,y = FontAndImgFindUtil.isMomentsBottom();
+					if x ~= -1 and y ~= -1 then
+						dFlag = true;
+						break;
+					end;
 				end;
 
 			end;
 			--touchUp(55, 1110);
 			touchUp(10,800);
 
-		until((a >= num) or (cnt == 10));
+		until((a >= num) or (cnt == 10) or (dFlag == true));
 
 		--置顶朋友圈
 		tap(170, 90);
@@ -233,6 +250,13 @@ function Moments.pingLun(num, content)
 	log("Moments.pingLun" .. "|num=" .. num .. "|content=" .. content);
 
 	PageUtil.pageSnsTimeLine(); --定位到朋友圈界面
+
+	x,y = FontAndImgFindUtil.isMoments(); --判断当前界面是不是朋友圈界面
+	if x == -1 and y == -1 then --如果不是朋友圈界面
+		return; --返回
+	end;
+
+	dFlag = false; --标识是否是底部
 
 	num = tonumber(num); --评论个数
 
@@ -274,13 +298,20 @@ function Moments.pingLun(num, content)
 				end;
 
 				break;
+			else
+				--判断是不是朋友圈最底部，最底部
+				x,y = FontAndImgFindUtil.isMomentsBottom();
+				if x ~= -1 and y ~= -1 then
+					dFlag = true;
+					break;
+				end;
 
 			end;
 
 		end;
 		touchUp(10, 800);
 		
-	until(a >= num);
+	until((a >= num) or (dFlag == true));
 
 	--置顶朋友圈
 	tap(170, 90);

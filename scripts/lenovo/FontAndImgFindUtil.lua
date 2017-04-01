@@ -12,6 +12,17 @@ function FontAndImgFindUtil.center_daZhaoHu()
     end;
 end;
 
+--寻找屏幕中间绿色按钮
+function FontAndImgFindUtil.group_join()
+    x,y = findMultiColorInRegionFuzzy( 0x04be02, "12|-4|0x04be02,-30|-4|0x04be02", 90, 115, 660, 580, 960);
+    if x ~= -1 and y ~= -1 then
+        return x, y;
+    else
+        return -1, -1;
+    end;
+end;
+
+
 --寻找wxControl文件夹
 function FontAndImgFindUtil.wxControlDir()
     x,y = findMultiColorInRegionFuzzy( 0x353535, "10|0|0x353535,26|-2|0x404040,52|-8|0x353535,98|-6|0x555555", 90, 180, 430, 430, 1160);
@@ -41,6 +52,30 @@ function FontAndImgFindUtil.isMoments()
     else
         return -1, -1;
     end;
+end;
+
+--判断是否是朋友圈最底部
+function FontAndImgFindUtil.isMomentsBottom()
+    --x,y = findMultiColorInRegionFuzzy( 0xdbdbdb, "-10|0|0xf8f8f8", 90, 320, 1150, 375, 1190);
+
+    x,y = findMultiColorInRegionFuzzy( 0xdadada, "-4|0|0xf2f2f2,6|0|0xf8f8f8", 100, 320, 850, 375, 1290);
+    if x ~= -1 and y ~= -1 then
+        return x, y;
+    else
+        return -1, -1;
+    end;
+
+end;
+
+--群扫码后保存到通讯录
+function FontAndImgFindUtil.bcdtxl()
+    x, y = findImageInRegionFuzzy("bcdtxl.png", 80, 10, 170, 250, 600, 0xffffff);
+
+    if x ~= -1 and y ~= -1 then
+        tap(650, y);
+        mSleep(1500);
+    end;
+    mSleep(1000);
 end;
 
 return FontAndImgFindUtil;

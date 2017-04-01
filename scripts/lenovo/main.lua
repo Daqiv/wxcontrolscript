@@ -42,6 +42,8 @@ require "Group";
 
 log("ActionReceiver|start");
 
+showFloatButton(false);
+
 while(true)
 do
 
@@ -55,11 +57,13 @@ do
 			table.insert(resultStrList,w)
 		end);
 
-		log("pasteboard" .. "|message=" .. message );
-	
 		scheduleId = resultStrList[1]; --获取任务ID
 		action = resultStrList[2]; --获取命令编码
 
+		log("任务ID:" .. scheduleId .. "|行为ID:" .. action .. " 开始执行");
+
+		toast("任务ID:" .. scheduleId .. " 开始执行");
+	
 		mSleep(3000); --延迟3秒
 
 		if ("200" == action) then --更新文件
@@ -77,11 +81,11 @@ do
 			Moments.send(2, content);
 			writePasteboard("");
 			HttpUtil.taskResponse(scheduleId, action);
-		elseif("3002" == action) then --朋友圈发文
+		elseif("3002" == action or "3003" == action) then --朋友圈发文,发链接
 			content = resultStrList[3];
 			Moments.send(1, content);
 			writePasteboard("");
-			HttpUtil.taskResponse(scheduleId, action);
+			HttpUtil.taskResponse(scheduleId, action);		
 		elseif("3004" == action) then --朋友圈点赞
 			num = resultStrList[3];
 			Moments.dianZan(num);
@@ -145,7 +149,8 @@ do
 		else
 			--toast("-1");
 		end;
-
+		toast("任务ID:" .. scheduleId .. " 执行完成");
+		log("任务ID:" .. scheduleId .. "|行为ID:" .. action .. " 执行完成");
 	end;
 --[[
 	if (isFrontApp("") ~= 1) then

@@ -118,7 +118,8 @@ function TongXunLu.sendMsgToGroup(num, content, stype)
 
 	xx = 550;
 
-	yy = 190;
+	--yy = 190;
+	yy = 240;
 
 	page = 1;
 
@@ -132,12 +133,14 @@ function TongXunLu.sendMsgToGroup(num, content, stype)
 
 	repeat
 
-		PageUtil.GroupCardSelectUI();
+		--PageUtil.GroupCardSelectUI();
+		PageUtil.pageContact();
 
-		mSleep(1000);
+		mSleep(4000);
 
-		--如何检测到没有群、退出循环
-		x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46|0xffffff", 90, 35, yy, 90, yy + 50);
+		--如果检测到没有群、退出循环
+		--x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46|0xffffff", 90, 35, yy, 90, yy + 50);
+		x, y = findImageInRegionFuzzy("gequnliao.png", 90, 280, yy-50, 440, yy+50, 0xffffff);
 		--if (isColor( 550,  1220, 0xebebeb, 95)) then
 		if x ~= -1 and y ~= -1 then
 			log("TongXunLu.sendMsgToGroup no group" .. "|x=" .. x .. "|y=" .. y .. "|yy=" .. yy .. "|yy+50=" .. (yy+50));
@@ -173,7 +176,7 @@ function TongXunLu.sendMsgToGroup(num, content, stype)
 		end;
 
 		mSleep(2300);
-		
+	
 		if stype == 1 then --发文字
 			mSleep(1000);
 			switchTSInputMethod(true);
@@ -274,7 +277,7 @@ function TongXunLu.sendMsgToGroup(num, content, stype)
 --			mSleep(5000);
 --		end;
 
-	until(false or (a >= num)); -- end repeat
+	until((a >= num)); -- end repeat
 
 	tap(Constants.upperleft_x, Constants.upperleft_y); --点击左上返回
 	mSleep(1000);
