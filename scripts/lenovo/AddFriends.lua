@@ -1,4 +1,5 @@
 require "PageUtil";
+require "FontAndImgFindUtil";
 
 AddFriends = {}
 
@@ -61,19 +62,64 @@ function AddFriends.contactAdd()
 	--yy = 1030;
 	a = 0;
 
+	arr_yy = 1240;
+	arr_pre = {0,0,0, 0,0,0, 0,0,0};--上一次图颜色数组
+	arr_cur = {0,0,0, 0,0,0, 0,0,0};--当前一次图颜色数组
+
+
 	PageUtil.mobileFriendUI(); --查看手机通讯录界面
+
+	FontAndImgFindUtil.bindMobile();
 
 	--判断是否有新好友可以添加
 	--x,y = findMultiColorInRegionFuzzy( 0x1aad19, "10|28|0x1aad19,118|28|0x1aad19,118|-8|0x1aad19", 90, 500, 160, 710, 1260);
 	--if x ~= -1 and y ~= -1 then --有朋友需要添加
 	repeat
+
+		arr_pre[1] = getColor(30, arr_yy - 15);
+		arr_pre[2] = getColor(60, arr_yy - 15);
+		arr_pre[3] = getColor(90, arr_yy - 15);
+
+		arr_pre[4] = getColor(30, arr_yy);
+		arr_pre[5] = getColor(60, arr_yy);
+		arr_pre[6] = getColor(90, arr_yy);
+
+		arr_pre[7] = getColor(30, arr_yy+15);
+		arr_pre[8] = getColor(60, arr_yy+15);
+		arr_pre[9] = getColor(90, arr_yy+15);
+
 		if yy > 1160 then
 			PageUtil.upMovePage();
 			mSleep(1500);
 			page = page + 1;
-		end;
 
+			arr_cur[1] = getColor(30, arr_yy - 15);
+			arr_cur[2] = getColor(60, arr_yy - 15);
+			arr_cur[3] = getColor(90, arr_yy - 15);
+
+			arr_cur[4] = getColor(30, arr_yy);
+			arr_cur[5] = getColor(60, arr_yy);
+			arr_cur[6] = getColor(90, arr_yy);
+
+			arr_cur[7] = getColor(30, arr_yy+15);
+			arr_cur[8] = getColor(60, arr_yy+15);
+			arr_cur[9] = getColor(90, arr_yy+15);
+
+		end;
 		mSleep(1000);
+
+		if (arr_pre[1] == arr_cur[9] and 
+			arr_pre[2] == arr_cur[9] and 
+			arr_pre[3] == arr_cur[9] and 
+			arr_pre[4] == arr_cur[9] and 
+			arr_pre[5] == arr_cur[9] and 
+			arr_pre[6] == arr_cur[9] and 
+			arr_pre[7] == arr_cur[9] and 
+			arr_pre[8] == arr_cur[9] and 
+			arr_pre[9] == arr_cur[9]) then
+			dialog("laaaaaaaaaaaaaaaaaa");
+			break;
+		end;
 
 		--判断是否是[添加]按钮
 		

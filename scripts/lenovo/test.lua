@@ -173,7 +173,15 @@ touchUp(10, 1154);
 --Moments.pingLun(3, "nice ~~");
 
 --TongXunLu.sendMsgTofriend();
-TongXunLu.sendMsgToGroup(10, "大家好～", 1);
+--TongXunLu.sendMsgToGroup(10, "大家好～", 1);
+--FontAndImgFindUtil.snsFirst();
+--FontAndImgFindUtil.snsFontFirst();
+--FontAndImgFindUtil.bindMobile();
+--AddFriends.contactAdd();
+
+--
+
+
 
 --[[
 yy = 340;

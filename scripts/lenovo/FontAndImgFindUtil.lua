@@ -78,4 +78,50 @@ function FontAndImgFindUtil.bcdtxl()
     mSleep(1000);
 end;
 
+--判断是不是朋友圈第一次发图文
+function FontAndImgFindUtil.snsFirst()
+    
+    x, y = findImageInRegionFuzzy("snsFirst.png", 80, 400, 780, 620, 960, 0xffffff);
+
+    if x ~= -1 and y ~= -1 then
+        tap(x, y);
+        mSleep(1500);
+    end;
+    mSleep(1000);
+end;
+
+--判断是不是朋友圈第一次发文字
+function FontAndImgFindUtil.snsFontFirst()
+    x, y = findMultiColorInRegionFuzzy( 0x1aad19, "88|62|0x1aad19,174|0|0x1aad19", 90, 180, 1050, 510, 1220);
+    if x ~= -1 and y ~= -1 then
+        tap(x, y);
+        mSleep(1500);
+    end;
+    mSleep(1000);
+end;
+
+--判断手机联系人添加好友页面(绑定手机号,上传通讯录界面)
+function FontAndImgFindUtil.bindMobile()
+    --寻找[上传通讯录]按钮
+    x, y = findMultiColorInRegionFuzzy( 0x1aad19, "94|58|0x1aad19,212|4|0x1aad19", 90, 110, 740, 510, 1040);
+    if x ~= -1 and y ~= -1 then
+        tap(x, y);
+        mSleep(1500);
+        --寻找点击[上传通讯录]按钮后弹出界面的[是]按钮
+        x,y = findMultiColorInRegionFuzzy( 0x1aad19, "0|12|0x1aad19,16|14|0xc2e9c2", 90, 470, 730, 600, 840);
+        if x ~= -1 and y ~= -1 then
+            tap(x, y);
+            mSleep(5000);
+
+            x, y = findMultiColorInRegionFuzzy( 0x1aad19, "94|58|0x1aad19,212|4|0x1aad19", 90, 110, 740, 510, 1040);
+            if x ~= -1 and y ~= -1 then
+                tap(x, y);
+                mSleep(4500);                
+            end;
+        end;
+
+    end;
+    mSleep(1000);
+end;
+
 return FontAndImgFindUtil;

@@ -1,5 +1,6 @@
 require "PageUtil";
 require "Constants";
+require "FontAndImgFindUtil";
 
 Moments = {}
 --[[
@@ -18,10 +19,14 @@ function Moments.send(stype,content)
 	end;
 
 	if 1 == stype then
-		touchDown(Constants.moments_ul_xj_x , Constants.moments_ul_xj_y); --左上角相机
+
+		touchDown(Constants.moments_ul_xj_x , Constants.moments_ul_xj_y); --左上角相机		
 		mSleep(3000); --长按相机发文字
 		touchUp(Constants.moments_ul_xj_x , Constants.moments_ul_xj_y);
 		mSleep(1000);
+		--判断是不是第一次朋友圈发文字,第一次发文字会弹出使用说明界面,需单独点击提示信息,再进行以下发文字处理
+		FontAndImgFindUtil.snsFontFirst();
+
 		tap(40, 190); --获取焦点
 		mSleep(1000);
 		switchTSInputMethod(true);
@@ -37,8 +42,10 @@ function Moments.send(stype,content)
 	elseif 2 == stype then
 
 		tap(Constants.moments_ul_xj_x , Constants.moments_ul_xj_y); --左上角相机
-
 		mSleep(2000);
+
+		--判断是不是第一次朋友圈发图文,第一次发图片会弹出使用说明,需单独点击提示信息,再进行以下发图文处理
+		FontAndImgFindUtil.snsFirst();	
 
 		--tap(Constants.moments_xj_zp_x, Constants.moments_xj_zp_y); -- 照片
 		tap(Constants.moments_xj_zp_x, Constants.moments_xj_zp_y); -- 相册(此处显示可能和手机或微信版本有关)
