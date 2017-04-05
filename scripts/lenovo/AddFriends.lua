@@ -66,7 +66,6 @@ function AddFriends.contactAdd()
 	arr_pre = {0,0,0, 0,0,0, 0,0,0};--上一次图颜色数组
 	arr_cur = {0,0,0, 0,0,0, 0,0,0};--当前一次图颜色数组
 
-
 	PageUtil.mobileFriendUI(); --查看手机通讯录界面
 
 	FontAndImgFindUtil.bindMobile();
@@ -107,17 +106,17 @@ function AddFriends.contactAdd()
 
 		end;
 		mSleep(1000);
-
-		if (arr_pre[1] == arr_cur[9] and 
-			arr_pre[2] == arr_cur[9] and 
-			arr_pre[3] == arr_cur[9] and 
-			arr_pre[4] == arr_cur[9] and 
-			arr_pre[5] == arr_cur[9] and 
-			arr_pre[6] == arr_cur[9] and 
-			arr_pre[7] == arr_cur[9] and 
-			arr_pre[8] == arr_cur[9] and 
+		--根据当前图片颜色与上一次图片颜色对比,如果9个点颜色相同,认为是通讯录最底层,退出循环
+		if (arr_pre[1] == arr_cur[1] and 
+			arr_pre[2] == arr_cur[2] and 
+			arr_pre[3] == arr_cur[3] and 
+			arr_pre[4] == arr_cur[4] and 
+			arr_pre[5] == arr_cur[5] and 
+			arr_pre[6] == arr_cur[6] and 
+			arr_pre[7] == arr_cur[7] and 
+			arr_pre[8] == arr_cur[8] and 
 			arr_pre[9] == arr_cur[9]) then
-			dialog("laaaaaaaaaaaaaaaaaa");
+
 			break;
 		end;
 
@@ -136,17 +135,20 @@ function AddFriends.contactAdd()
 		end;
 
 		a = a + 1;
-
+--[[
 		mSleep(3333);
 		tap(Constants.upperright_x, Constants.upperright_y); --点击右上角发送
 		mSleep(1333);
-		
+	]]--
+		mSleep(2000);--调试
+		PageUtil.back();
+
 		yy = yy + 130;
 
 		log("AddFriends.contactAdd" .. "xx=" .. xx .. "|yy=" .. yy );
 
 		mSleep(1000);
-	until(false or a >= 20);
+	until(false or a >= 30);
 
 end;
 

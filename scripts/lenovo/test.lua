@@ -177,7 +177,7 @@ touchUp(10, 1154);
 --FontAndImgFindUtil.snsFirst();
 --FontAndImgFindUtil.snsFontFirst();
 --FontAndImgFindUtil.bindMobile();
---AddFriends.contactAdd();
+AddFriends.contactAdd();
 
 --
 
