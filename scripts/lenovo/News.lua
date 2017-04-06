@@ -24,12 +24,18 @@ function News.viewNews()
 			tap(x, y);
 			
 			mSleep(3000);
+			--判断是不是腾讯新闻界面
+			x, y = FontAndImgFindUtil.isNewsPage();
 
-			viewNewsContent(130, 1060); --浏览第1条新闻
+			if x ~= -1 and y ~= -1 then --是腾讯新闻界面,开始浏览新闻
 
-			viewNewsContent(130, 1234); --浏览第2条新闻
+				viewNewsContent(130, 1060); --浏览第1条新闻
 
-			returnMy(4); --返回到我页面
+				viewNewsContent(130, 1234); --浏览第2条新闻
+
+				returnMy(4); --返回到我页面
+
+			end;
 		end;
 	end;
 
@@ -42,26 +48,31 @@ function viewNewsContent(x, y)
 
 	mSleep(17000); --读取新闻内容(比较慢，与手机性能、网速有关)
 
-	-- start view news --
+	--判断是不是腾讯新闻界面
+	x, y = FontAndImgFindUtil.isNewsPage();
 
-	touchDown(230,1125);
+	if x ~= -1 and y ~= -1 then
 
-	for i = 1125, 80, -10 do
-		touchMove(230, i);
-		mSleep(math.random(0,150));        --延迟
-	end
+		-- start view news --
 
-	touchUp(230,1025);
+		touchDown(230,1125);
 
-	mSleep(500);
+		for i = 1125, 80, -10 do
+			touchMove(230, i);
+			mSleep(math.random(0,150));        --延迟
+		end
 
-	--点击左上角X
-	tap(Constants.upperleft_x, Constants.upperleft_y);
+		touchUp(230,1025);
 
-	mSleep(1000);
+		mSleep(500);
 
-	-- end view news --
+		--点击左上角X
+		tap(Constants.upperleft_x, Constants.upperleft_y);
 
+		mSleep(1000);
+
+		-- end view news --
+	end;
 end;
 
 --返回主页

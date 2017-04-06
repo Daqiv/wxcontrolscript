@@ -120,17 +120,31 @@ function AddFriends.contactAdd()
 			break;
 		end;
 
+		tmpX, tmpY = FontAndImgFindUtil.contactYiTianJia(xx, yy); --判断是否是[已添加]按钮
+
 		--判断是否是[添加]按钮
-		
 		if page == 1 then
 			if (isColor(xx,  yy, 0x1aad19, 85)) then
 				tap(xx, yy); --点击[添加]按钮
+
+--		mSleep(2000);--调试
+--		PageUtil.back();--调试
+
+			elseif tmpX ~= -1 and tmpY ~= -1 then --判断是否是[已添加]按钮,已添加按钮不做任何操作
+				--do nothing
+				toast("此好友已添加");
+			elseif (isColor(xx, yy, 0xffffff, 95)) then --无好友退出循环
+				toast("无好友,退出本次操作");
+				break;
 			end;
 		else
 			x,y = findMultiColorInRegionFuzzy( 0x1aad19, "38|0|0xf8fcf8,98|2|0x1aad19", 90, 520, 1050, 710, 1274);
 			--x,y = findMultiColorInRegionFuzzy( 0x1aad19, "10|28|0x1aad19,118|28|0x1aad19,118|-8|0x1aad19", 90, 520, 1190, 710, 1274);
 			if x~= -1 and y ~= -1 then
 				tap(x, y);
+
+--		mSleep(2000);--调试
+--		PageUtil.back();--调试
 			end;
 		end;
 
@@ -140,8 +154,6 @@ function AddFriends.contactAdd()
 		tap(Constants.upperright_x, Constants.upperright_y); --点击右上角发送
 		mSleep(1333);
 	]]--
-		mSleep(2000);--调试
-		PageUtil.back();
 
 		yy = yy + 130;
 

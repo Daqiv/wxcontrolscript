@@ -177,10 +177,12 @@ touchUp(10, 1154);
 --FontAndImgFindUtil.snsFirst();
 --FontAndImgFindUtil.snsFontFirst();
 --FontAndImgFindUtil.bindMobile();
-AddFriends.contactAdd();
+--AddFriends.contactAdd();
+--FontAndImgFindUtil.contactYiTianJia(570, 620);
+
 
 --
-
+--removeAllContactsFromAB();
 
 
 --[[
@@ -203,7 +205,7 @@ x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46
 			dialog("x=" .. x .. ";y=" .. y);
 		end;]]--
 
---News.viewNews();
+News.viewNews();
 --AddFriends.accept(1);
 
 --PageUtil.mainPage();

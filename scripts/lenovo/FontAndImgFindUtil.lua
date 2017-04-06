@@ -124,4 +124,21 @@ function FontAndImgFindUtil.bindMobile()
     mSleep(1000);
 end;
 
+--通讯录当前坐标是否有好友
+function FontAndImgFindUtil.contactNoFriends(x, y)
+    
+end;
+
+--判断是否是已添加图片
+function FontAndImgFindUtil.contactYiTianJia(xx, yy)
+    x, y = findImageInRegionFuzzy("yitianjia.png", 80, xx, yy - 60, xx + 110, yy + 60, 0xffffff);
+    return x, y;
+end;
+
+--判断是否是是腾讯新闻界面
+function FontAndImgFindUtil.isNewsPage()
+    x, y = findImageInRegionFuzzy("qqnews.png", 80, 70, 50, 285, 135, 0xffffff);
+    return x, y;
+end;
+
 return FontAndImgFindUtil;
