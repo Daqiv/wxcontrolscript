@@ -127,8 +127,8 @@ function TongXunLu.sendMsgToGroup(num, content, stype)
 
 	num = tonumber(num); --给num个群发消息
 
-	if num > 10 then
-		num = 10;
+	if num > 50 then
+		num = 50;
 	end;
 
 	repeat

@@ -205,7 +205,7 @@ x,y = findMultiColorInRegionFuzzy( 0xffffff, "22|14|0xffffff,8|36|0xffffff,40|46
 			dialog("x=" .. x .. ";y=" .. y);
 		end;]]--
 
-News.viewNews();
+NearFriends.auToSayToNearFriends(10);
 --AddFriends.accept(1);
 
 --PageUtil.mainPage();

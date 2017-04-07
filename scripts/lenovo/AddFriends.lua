@@ -18,7 +18,7 @@ function AddFriends.searchAdd()
 
 		mSleep(3500);
 		inputText("13146451976"); --输入微信号
-		mSleep(3000);
+		mSleep(10000);
 
 		--if multiColor({{36,  168, 0x2ba245},{82,  216, 0xffffff},{106,  238, 0x2ba245}}) == true then
 		--寻找搜索按钮
